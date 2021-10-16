@@ -7,7 +7,7 @@ $router->get('/', function () use ($router) {
 });
 
 // Auth routes
-$router->group(['middleware' => 'guest', 'namespace' => 'Auth'], function () use ($router) {
+$router->group(['namespace' => 'Auth'], function () use ($router) {
 
     $router->post('register', [
         'as' => 'register',
@@ -25,7 +25,8 @@ $router->group(['middleware' => 'guest', 'namespace' => 'Auth'], function () use
     ]);
 });
 
-$router->group(['namespace' => 'Api\v1'], function () use ($router) {
+// other api
+$router->group(['middleware' => 'auth:api', 'namespace' => 'Api\v1'], function () use ($router) {
 
     // car
     $router->get('cars', [
