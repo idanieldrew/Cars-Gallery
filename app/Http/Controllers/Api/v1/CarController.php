@@ -3,22 +3,50 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\v1\CarCollection;
+use App\Http\Resources\v1\CarResource;
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-      /**
-       * Create a new controller instance.
-       *
-       * @return void
-       */
-      public function __construct()
-      {
-            //
-      }
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
 
-      public function index()
-      {
-            dd(12);
-      }
+    public function index()
+    {
+        $cars = Car::all();
+
+        return new CarCollection($cars);
+    }
+
+    public function show($car)
+    {
+        $car = Car::where('slug', $car)->firstOrFail();
+
+        return new CarResource($car);
+    }
+
+    public function delete($car)
+    {
+        $car = Car::where('slug', $car)->firstOrFail();
+
+        $car->delete();
+
+        return response()->json([
+            'success' => true
+        ],202);
+    }
+
+    public function filter()
+    {
+        dd(12);
+    }
 }

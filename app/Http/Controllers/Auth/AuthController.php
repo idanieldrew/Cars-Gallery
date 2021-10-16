@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -39,13 +39,13 @@ class AuthController extends Controller
        */
       public function login(Request $request)
       {
-            //validate incoming request 
+            //validate incoming request
             $this->validate($request, [
                   'email' => 'required|string',
                   'password' => 'required|string',
             ]);
             $credentials = $request->only(['email', 'password']);
-            
+
             if (!$token = Auth::attempt($credentials)) {
                   return response()->json(['message' => 'Unauthorized'], 401);
             }
