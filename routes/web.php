@@ -23,10 +23,23 @@ $router->group(['namespace' => 'Auth'], function () use ($router) {
         'as' => 'refresh',
         'uses' => 'AuthController@refresh'
     ]);
+
+    $router->get('verify/{id}/{hash}', [
+        'middleware' =>['signed','throttle:6,1'],
+        'as' => 'verify',
+        'uses' => 'EmailVerificationController@invoke'
+    ]);
+
+    $router->post('verify/resend', [
+        'middleware' =>['signed','throttle:6,1'],
+        'as' => 'verify',
+    ],function(){
+        return 'success';
+    });
 });
 
 // other api
-$router->group(['middleware' => 'auth:api', 'namespace' => 'Api\v1'], function () use ($router) {
+$router->group(['middleware' => 'auth', 'namespace' => 'Api\v1'], function () use ($router) {
 
     // car
     $router->get('cars', [
@@ -47,7 +60,7 @@ $router->group(['middleware' => 'auth:api', 'namespace' => 'Api\v1'], function (
     ]);
 
     // filter car with category
-    $router->get('cars', [
+    $router->get('cars/filter', [
         'as' => 'filter',
         'uses' => 'CarController@filter'
     ]);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\CarCollection;
 use App\Http\Resources\v1\CarResource;
 use App\Models\Car;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -42,11 +43,19 @@ class CarController extends Controller
 
         return response()->json([
             'success' => true
-        ],202);
+        ], 202);
     }
 
     public function filter()
     {
-        dd(12);
+        $categories = Category::all();
+        if (request()->category) {
+            $cars = Car::with('category')->whereHas('category', function ($query) {
+                $query->where('slug', request()->category);
+            })->get();
+        } else {
+            $cars = Car::paginate(10);
+        }
+        return new CarCollection($cars);
     }
 }
