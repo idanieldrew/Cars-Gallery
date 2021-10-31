@@ -17,7 +17,11 @@ class CarResource extends JsonResource
         return [
             'name' => $this->name,
             'slug' => $this->slug,
-            'details' => $this->details
+            'details' => $this->details,
+            'description' => $this->description,
+            'images' => new ImageCollection($this->Images),
+            'likes' => new LikeCollection($this->likes),
+            'comments' => new CommentCollection($this->comments)
         ];
     }
 }
