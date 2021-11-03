@@ -15,4 +15,10 @@ class Category extends Model
     {
         return $this->hasMany(Car::class);
     }
+
+    
+    public function comments()
+    {
+          return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+    }
 }

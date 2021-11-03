@@ -12,6 +12,11 @@ class Comment extends Model
 
       protected $guarded = [];
 
+      public function commentable()
+      {
+            return $this->morphTo();
+      }
+
       public function likes()
       {
             return $this->morphMany(Like::class, 'likeable');
@@ -24,6 +29,12 @@ class Comment extends Model
 
       public function addComment($car, $value)
       {
+            
             dispatch(new CreateCommentJob($car, auth()->user()->id, $value));
+      }
+
+      public function replies()
+      {
+            return $this->hasMany(Comment::class, 'parent_id');
       }
 }

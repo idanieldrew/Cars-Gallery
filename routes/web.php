@@ -83,6 +83,12 @@ $router->group(['middleware' => 'auth', 'namespace' => 'Api\v1'], function () us
     // create comment
     $router->post('cars/{car}/comment', [
         'as' => 'create-comment',
-        'uses' => 'CommentController@store'
+        'uses' => 'CommentController@comment'
+    ]);
+
+    // create reply for comment
+    $router->post('cars/{car}/reply', [
+        'as' => 'create-comment',
+        'uses' => 'CommentController@replyStore'
     ]);
 });

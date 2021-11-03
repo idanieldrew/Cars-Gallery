@@ -19,13 +19,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // create fake user
         $user = User::factory()->create();
+        // create fake categories
         Category::factory(5)->create()->each(function ($cat) use ($user) {
+            // create fake cars
             $cat->cars()->save(Car::factory()->make())->each(function ($car) use ($user) {
+                // create fake images
                 $car->images()->save(Image::factory()->make());
+                // create fake likes
                 $car->likes()->save(Like::factory(['user_id' => $user->id])->make());
+                // create fake comments for cars
                 $car->comments()->save(Comment::factory(['user_id' => $user->id])->make());
             });
+            // create fake comments for categories
+            $cat->comments()->save(Comment::factory(['user_id' => $user->id])->make());
         });
     }
 }
