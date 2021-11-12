@@ -33,6 +33,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'password',
     ];
 
+    public function suggestions()
+    {
+        return $this->hasMany(Suggestion::class);
+    }
 
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.

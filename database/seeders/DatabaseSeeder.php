@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\About;
 use App\Models\Car;
 use App\Models\Category;
 use App\Models\Comment;
@@ -35,5 +36,7 @@ class DatabaseSeeder extends Seeder
             // create fake comments for categories
             $cat->comments()->save(Comment::factory(['user_id' => $user->id])->make());
         });
+
+        About::factory()->create();
     }
 }

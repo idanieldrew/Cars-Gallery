@@ -42,7 +42,7 @@ $router->group(['namespace' => 'Auth'], function () use ($router) {
 });
 
 // other api
-$router->group(['middleware' => 'auth', 'namespace' => 'Api\v1'], function () use ($router) {
+$router->group(['namespace' => 'Api\v1'], function () use ($router) {
 
     // car
     $router->get('cars', [
@@ -90,5 +90,11 @@ $router->group(['middleware' => 'auth', 'namespace' => 'Api\v1'], function () us
     $router->post('cars/{car}/reply', [
         'as' => 'create-comment',
         'uses' => 'CommentController@replyStore'
+    ]);
+
+    // api weblog
+    $router->get('weblog', [
+        'as' => 'weblog',
+        'uses' => 'WeblogController@weblog'
     ]);
 });
