@@ -20,7 +20,7 @@ class CarResource extends JsonResource
             'details' => $this->details,
             'description' => $this->description,
             'images' => new ImageCollection($this->Images),
-            'likes' => new LikeCollection($this->likes),
+            'likes' => count(new LikeCollection($this->likes)),
             'comments' => new CommentCollection($this->comments)
         ];
     }

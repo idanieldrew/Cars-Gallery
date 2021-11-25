@@ -21,7 +21,7 @@ class CarController extends Controller
 
     public function index()
     {
-        $cars = Car::paginate(9);
+        $cars = Car::all();
 
         $cars->pluck('comments')->flatten();
 

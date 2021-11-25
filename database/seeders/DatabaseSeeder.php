@@ -30,10 +30,10 @@ class DatabaseSeeder extends Seeder
                 // create fake likes
                 $car->likes()->save(Like::factory(['user_id' => $user->id])->make());
                 // create fake comments for cars
-                $car->comments()->save(Comment::factory(['user_id' => $user->id])->make());
+                // $car->comments()->save(Comment::factory(['user_id' => $user->id])->make());
             });
             // create fake comments for categories
-            $cat->comments()->save(Comment::factory(['user_id' => $user->id])->make());
+            // $cat->comments()->save(Comment::factory(['user_id' => $user->id])->make());
         });
     }
 }

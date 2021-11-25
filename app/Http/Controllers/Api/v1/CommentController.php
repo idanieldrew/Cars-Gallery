@@ -10,6 +10,12 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
+    public function index()
+    {
+        $comments = Comment::all();
+        return $comments;
+    }
+
       public function store($car, Comment $comment)
       {
             $car = Car::where('slug', $car)->firstOrFail();
@@ -30,10 +36,10 @@ class CommentController extends Controller
             $comment->when(
                   request()->reply,
                   function () use ($car) {
-                        dispatch(new CreateReplyJob($car, auth()->user()->id, request()->all()));
+                        dispatch(new CreateReplyJob($car, 1, request()->all()));
                   },
                   function () use ($car) {
-                        dispatch(new CreateCommentJob($car, auth()->user()->id, request()->content));
+                        dispatch(new CreateCommentJob($car, 1, request()->content));
                   }
             );
 

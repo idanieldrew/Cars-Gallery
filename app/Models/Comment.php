@@ -29,8 +29,7 @@ class Comment extends Model
 
       public function addComment($car, $value)
       {
-            
-            dispatch(new CreateCommentJob($car, auth()->user()->id, $value));
+            dispatch(new CreateCommentJob($car, 1, $value));
       }
 
       public function replies()
