@@ -2,27 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserEvent;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
-use http\Cookie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     public function register(Request $request)
     {
         $user = User::create([
@@ -33,15 +22,15 @@ class AuthController extends Controller
         return response()->json(['user' => $user], 201);
     }
 
-
     /**
-     * Get a JWT via given credentials.
+     * login  via JWT given credentials.
      *
      * @param  Request  $request
-     * @return Response
+     * @return
      */
     public function login(Request $request)
     {
+        event(new UserEvent(200));
         //validate incoming request
         $this->validate($request, [
             'email' => 'required|string',
@@ -53,7 +42,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         }
         setcookie('x-access-token',$token,14400,null,null,false,true);
-//        request()->cookie('t',$token);
 
         return $this->respondWithToken($token);
     }
