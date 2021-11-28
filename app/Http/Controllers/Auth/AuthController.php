@@ -19,6 +19,10 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+        // send mail
+        event(new UserEvent($user));
+
         return response()->json(['user' => $user], 201);
     }
 
@@ -30,7 +34,6 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        event(new UserEvent(200));
         //validate incoming request
         $this->validate($request, [
             'email' => 'required|string',

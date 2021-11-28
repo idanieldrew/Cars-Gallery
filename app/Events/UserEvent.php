@@ -4,7 +4,7 @@ namespace App\Events;
 
 class UserEvent extends Event
 {
-    protected $user;
+    public $user;
 
     public function __construct($user)
     {

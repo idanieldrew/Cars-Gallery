@@ -1,8 +1,9 @@
 <?php
 
+namespace App\Mail;
+
 use App\Models\User;
 use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterUser extends Mailable
 {
@@ -15,6 +16,6 @@ class RegisterUser extends Mailable
 
     public function build()
     {
-//        Mail::send(['text' => 'mail'],'')
+        return $this->with(['name' => $this->user->name]);
     }
 }
