@@ -101,6 +101,9 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+class_alias(Laravel\Socialite\Facades\Socialite::class, 'Socialite');
+$app->register(Laravel\Socialite\SocialiteServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

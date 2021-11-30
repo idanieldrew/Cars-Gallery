@@ -9,6 +9,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
         "laravel/lumen-framework": "^8.0",
+        "laravel/socialite": "^5.2",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
