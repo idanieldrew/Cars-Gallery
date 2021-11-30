@@ -58,7 +58,7 @@ class AuthController extends Controller
        return $this->respondWithToken($refreshToken);
     }
 
-    //Add this method to the Controller class
+    //Add this method to the Controllers class
     protected function respondWithToken($token)
     {
         return response()->json([

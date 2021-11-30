@@ -16,19 +16,6 @@ class CommentController extends Controller
         return $comments;
     }
 
-      public function store($car, Comment $comment)
-      {
-            $car = Car::where('slug', $car)->firstOrFail();
-
-            $comment->addComment($car, request()->content);
-
-            return response()->json([
-                  'success' => true,
-                  'message' => request()->content
-            ], 201);
-      }
-
-
       public function comment($car, Comment $comment)
       {
             $car = Car::where('slug', $car)->firstOrFail();

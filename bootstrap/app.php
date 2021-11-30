@@ -83,7 +83,7 @@ $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 */
 
 // $app->middleware([
-//     App\Http\Middleware\ExampleMiddleware::class
+//     app\Http\Middleware\ExampleMiddleware::class
 // ]);
 
 $app->middleware([
@@ -110,6 +110,9 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 
+// dashboard provider
+$app->register(\Modules\dashboard\app\Providers\AppServiceProvider::class);
+
 //Email
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 
@@ -124,11 +127,28 @@ $app->register(Illuminate\Mail\MailServiceProvider::class);
 |
 */
 
+// main routes
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'app\Http\Controllers',
     'prefix' => 'api'
 ], function ($router) {
     require __DIR__ . '/../routes/web.php';
+});
+
+// dashboard routes
+$app->router->group([
+    'namespace' => 'Modules\dashboard\app\Http\Controllers\api\v1',
+    'prefix' => 'api/dashboard'
+], function ($router) {
+    require __DIR__ . '/../Modules/dashboard/routes/dashboard.php';
+});
+
+// admin routes
+$app->router->group([
+    'namespace' => 'Modules\admin\app\Http\Controllers\api\v1',
+    'prefix' => 'api/admin'
+], function ($router) {
+    require __DIR__ . '/../Modules/admin/routes/admin.php';
 });
 
 return $app;

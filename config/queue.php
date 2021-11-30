@@ -55,7 +55,7 @@ return [
                 ],
                 'queue' => [
                     'job' => VladimirYuldashev\LaravelQueueRabbitMQ\Queue\Jobs\RabbitMQJob::class,
-                    // 'job' => App\Jobs\CustomHandleJob::class,
+                    // 'job' => app\Jobs\CustomHandleJob::class,
                 ],
             ],
 

@@ -24,7 +24,7 @@ class UserListener implements ShouldQueue
 
         $mail = new RegisterUser($event->user);
 
-        Mail::send([],['name' => $event->user->email],function (Message $message) use ($email,$name){
+        Mail::raw('name',function (Message $message) use ($email,$name){
             $message->to($email)
                 ->subject('Welcome to Cars-Gallery ' . $name);
         });

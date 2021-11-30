@@ -80,19 +80,9 @@ $router->group(['namespace' => 'Api\v1'], function () use ($router) {
         'uses' => 'LikeController@like'
     ]);
 
-    // create comment
-    $router->post('cars/{car}/comment', [
-        'as' => 'create-comment',
-        'uses' => 'CommentController@comment'
-    ]);
-
-    // create reply for comment
+    // create  comment or reply for comment
     $router->post('cars/{car}/reply', [
         'as' => 'create-comment',
         'uses' => 'CommentController@replyStore'
-    ]);
-
-    $router->get('allc', [
-        'uses' => 'CommentController@index'
     ]);
 });
