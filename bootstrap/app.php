@@ -129,7 +129,7 @@ $app->register(Illuminate\Mail\MailServiceProvider::class);
 
 // main routes
 $app->router->group([
-    'namespace' => 'app\Http\Controllers',
+    'namespace' => 'App\Http\Controllers\Api\v1',
     'prefix' => 'api'
 ], function ($router) {
     require __DIR__ . '/../routes/web.php';
@@ -137,7 +137,7 @@ $app->router->group([
 
 // dashboard routes
 $app->router->group([
-    'namespace' => 'Modules\dashboard\app\Http\Controllers\api\v1',
+    'namespace' => 'Modules\dashboard\app\Http\Controllers\Api\v1',
     'prefix' => 'api/dashboard'
 ], function ($router) {
     require __DIR__ . '/../Modules/dashboard/routes/dashboard.php';

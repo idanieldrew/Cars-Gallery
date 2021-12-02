@@ -6,9 +6,9 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-// Auth routes
 $router->group(['namespace' => 'Auth'], function () use ($router) {
 
+// Auth routes
     $router->post('register', [
         'as' => 'register',
         'uses' => 'AuthController@register'
@@ -42,7 +42,7 @@ $router->group(['namespace' => 'Auth'], function () use ($router) {
 });
 
 // other api
-$router->group(['namespace' => 'Api\v1'], function () use ($router) {
+//$router->group([], function () use ($router) {
 
     // car
     $router->get('cars', [
@@ -80,9 +80,8 @@ $router->group(['namespace' => 'Api\v1'], function () use ($router) {
         'uses' => 'LikeController@like'
     ]);
 
-    // create  comment or reply for comment
-    $router->post('cars/{car}/reply', [
-        'as' => 'create-comment',
-        'uses' => 'CommentController@replyStore'
-    ]);
-});
+// create comment
+$router->post('cars/{car}/comment', [
+    'as' => 'create-comment',
+    'uses' => 'CommentController@comment'
+]);
