@@ -19,7 +19,10 @@ class ModuleMakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:module {module}';
+    protected $signature = 'make:module {module}
+        { --app : make app dir}
+        { --database : make database dir}
+        ';
 
     /**
      * The console command description.
@@ -48,13 +51,26 @@ class ModuleMakeCommand extends Command
      */
     public function handle()
     {
+        // module address
         $path = $this->laravel->basePath('Modules/' . $this->argument('module'));
+        // app address
+        $app = $path . '/app';
 
+        $database = $path . '/database';
+
+        // check created module
         if (is_dir($path)){
-            $this->info("this module " .  $this->argument('module') . 'is already exist');
+            $this->info("this module " .  $this->argument('module') . 'is already exist!');
         }
+        // make module & options
         $this->files->makeDirectory($path);
-        $this->info("success");
+        $this->option('app') ?
+            $this->files->makeDirectory($app) :
+            $this->files->makeDirectory($path );
+        $this->option('database') ?
+            $this->files->makeDirectory($database) :
+            false;
+            $this->info("success");
 
         return null;
     }
