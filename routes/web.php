@@ -19,6 +19,11 @@ $router->group(['namespace' => 'Auth'], function () use ($router) {
         'uses' => 'AuthController@login'
     ]);
 
+    $router->post('logout', [
+        'as' => 'logout',
+        'uses' => 'AuthController@logout'
+    ]);
+
 
     $router->post('refresh', [
         'as' => 'refresh',

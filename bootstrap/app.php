@@ -116,6 +116,9 @@ $app->register(\Modules\dashboard\app\Providers\AppServiceProvider::class);
 //Email
 $app->register(Illuminate\Mail\MailServiceProvider::class);
 
+// Notification
+$app->register(Illuminate\Notifications\NotificationServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

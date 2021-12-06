@@ -51,11 +51,16 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        $refreshToken = request()->cookie('x-access-token');
+        return $this->respondWithToken(auth()->refresh());
+    }
 
-        $refreshToken ?null : abort(403,'token is expired!!!');
+    public function logout()
+    {
+        auth()->logout();
 
-       return $this->respondWithToken($refreshToken);
+        return response()->json([
+            'message' => 'logout!'
+        ]);
     }
 
     //Add this method to the Controllers class
