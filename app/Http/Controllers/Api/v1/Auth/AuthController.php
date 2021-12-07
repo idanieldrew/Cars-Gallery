@@ -17,6 +17,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
         ]);
 
@@ -34,17 +35,19 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        //validate incoming request
-        $this->validate($request, [
-            'email' => 'required|string',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only(['email', 'password']);
+        $field = 'username';
+        if (is_numeric($request->login)){
+            $field = 'phone';
+        } elseif (filter_var($request->login,FILTER_VALIDATE_EMAIL)){
+            $field = 'email';
+        }
+        $request->merge([$field => $request->login]);
+
+        $credentials = $request->only([$field, 'password']);
 
         if (!$token = JWTAuth::attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-        setcookie('x-access-token',$token,14400,null,null,false,true);
 
         return $this->respondWithToken($token);
     }
