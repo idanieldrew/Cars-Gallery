@@ -2,7 +2,6 @@
 
 namespace Modules\admin\app\Http\Controllers\api\v1;
 
-use App\Http\Resources\v1\CarResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
