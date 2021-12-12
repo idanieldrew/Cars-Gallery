@@ -2,30 +2,50 @@
 
 namespace Modules\admin\app\Channels;
 
-use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Http;
 
 class SmsChannel
 {
-    protected $msg;
+    public $lines =  [];
+    public $from;
+    public $to;
+    public $apikey;
 
-    protected $phone;
-    public function __construct(string $msg,string $phone)
+    public function __construct($lines=[])
     {
-        $this->msg = $msg;
-        $this->phone = $phone;
+        $this->lines = $lines;
+        $this->from = config('sms.linenumber');
+        $this->apikey = config('sms.apikey');
+        return $this;
+    }
+
+    public function from($from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    public function to($to)
+    {
+        $this->to = $to;
+        return $this;
+    }
+
+    public function line($line)
+    {
+        $this->lines[] = $line;
+        return $this;
     }
 
     public function send()
     {
-
-    }
-
-    public function sendSMS($notifiable,Notification $notification)
-    {
         $sendSms = Http::withHeaders([
-            'apikey' => config('apikey')
-        ])->asForm()->post('https://api.ghasedak.com/v2/sms/send/simple',[$this->msg,$this->phone]);
+            'apikey' => config('sms.ghasedak.apikey')
+        ])->asForm()->post('https://api.ghasedak.me/v2/sms/send/simple',[
+            'message' =>$this->lines[0],
+            'receptor' =>$this->to,
+            'linenumber' => config('sms.ghasedak.linenumber')
+        ]);
 
         return $sendSms->json();
     }
