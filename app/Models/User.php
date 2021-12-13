@@ -18,6 +18,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $guarded = [];
 
+    const TYPE_ADMIN = 'admin';
+    const TYPE_SUPER = 'super';
+    const TYPE_USER = 'user';
+    const TYPES = [self::TYPE_ADMIN,self::TYPE_SUPER,self::TYPE_USER];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -46,5 +51,20 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function isNormal()
+    {
+        return $this->type = self::TYPE_USER;
+    }
+
+    public function isAdmin()
+    {
+        return $this->type = self::TYPE_ADMIN;
+    }
+
+    public function isSuper()
+    {
+        return $this->type = self::TYPE_SUPER;
     }
 }
