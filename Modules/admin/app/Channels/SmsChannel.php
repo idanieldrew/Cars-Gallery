@@ -47,6 +47,6 @@ class SmsChannel
             'linenumber' => config('sms.ghasedak.linenumber')
         ]);
 
-        return $sendSms->json();
+        return;
     }
 }

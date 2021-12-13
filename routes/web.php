@@ -86,7 +86,7 @@ $router->group(['namespace' => 'Auth'], function () use ($router) {
     ]);
 
 // create comment
-$router->post('cars/{car}/comment', [
+    $router->post('cars/{car}/comment', [
     'as' => 'create-comment',
     'uses' => 'CommentController@comment'
-]);
+    ]);

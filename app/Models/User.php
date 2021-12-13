@@ -55,16 +55,16 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function isNormal()
     {
-        return $this->type = self::TYPE_USER;
+        return $this->type == self::TYPE_USER;
     }
 
     public function isAdmin()
     {
-        return $this->type = self::TYPE_ADMIN;
+        return $this->type == self::TYPE_ADMIN;
     }
 
     public function isSuper()
     {
-        return $this->type = self::TYPE_SUPER;
+        return $this->type == self::TYPE_SUPER;
     }
 }

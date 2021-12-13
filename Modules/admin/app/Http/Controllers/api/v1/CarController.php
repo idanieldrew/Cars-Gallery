@@ -2,16 +2,21 @@
 
 namespace Modules\admin\app\Http\Controllers\api\v1;
 
+use App\Http\Controllers\Controller;
+use App\Models\Car;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Modules\admin\app\Notifications\PublishCarNotification;
 
-class CarController
+class CarController extends Controller
 {
+
     public function store($category,Request $request)
     {
         $category = Category::where('slug',$category)->firstOrFail();
+
+        $this->authorize('create',Car::class);
 
         $car = $category->cars()->create([
             'name' => $request->name,
