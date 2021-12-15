@@ -59,10 +59,12 @@ $app->singleton(
 |
 */
 
-$app->configure('app');
+$app->configure('auth');
+$app->configure('database');
 $app->configure('mail');
 $app->configure('queue');
 $app->configure('sms');
+$app->configure('jwt');
 
 // Mail Config
 $app->alias('Mail.manager', Illuminate\Mail\MailManager::class);
@@ -110,6 +112,8 @@ $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
+
+$app->register(Illuminate\Redis\RedisServiceProvider::class);
 
 // dashboard provider
 $app->register(\Modules\dashboard\app\Providers\AppServiceProvider::class);
